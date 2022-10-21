@@ -36,7 +36,7 @@ const defaultSettings = {
     center: 'title',
     right: 'hide, custom, month,agendaWeek,agendaDay',
   },
-  //点击今天日列表图
+  // 点击今天日列表图
   eventLimitClick: 'day',
   // 隐藏超出的事件
   eventLimit: true,
@@ -95,7 +95,7 @@ const CalendarMixins = {
       this.getCalendar((ref) => ref.$emit(name, data));
     },
 
-    /** 强制重新加载所有的事件（日程）*/
+    /** 强制重新加载所有的事件（日程） */
     calendarReloadEvents() {
       this.calendarEmit('reload-events');
     },

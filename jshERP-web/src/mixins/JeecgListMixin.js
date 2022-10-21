@@ -13,9 +13,9 @@ export const JeecgListMixin = {
   mixins: [mixinDevice],
   data() {
     return {
-      //token header
+      // token header
       tokenHeader: { 'X-Access-Token': Vue.ls.get(ACCESS_TOKEN) },
-      /*卡片样式 */
+      /* 卡片样式 */
       cardStyle: '',
       /* 查询条件-请不要在queryParam中声明非字符串值的属性 */
       queryParam: {},
@@ -44,9 +44,9 @@ export const JeecgListMixin = {
       filters: {},
       /* table加载状态 */
       loading: false,
-      /* table选中keys*/
+      /* table选中keys */
       selectedRowKeys: [],
-      /* table选中records*/
+      /* table选中records */
       selectionRows: [],
       /* 查询折叠 */
       toggleSearchStatus: false,
@@ -67,11 +67,11 @@ export const JeecgListMixin = {
       this.cardStyle = 'height:' + (document.documentElement.clientHeight - 125) + 'px';
     }
     if (!this.disableMixinCreated) {
-      //console.log(' -- mixin created -- ')
+      // console.log(' -- mixin created -- ')
       this.loadData();
-      //初始化字典配置 在自己页面定义
+      // 初始化字典配置 在自己页面定义
       this.initDictConfig();
-      //初始化按钮权限
+      // 初始化按钮权限
       this.initActiveBtnStr();
     }
   },
@@ -84,11 +84,11 @@ export const JeecgListMixin = {
         this.$message.error('请设置url.list属性!');
         return;
       }
-      //加载数据 若传入参数1则加载第一页的内容
+      // 加载数据 若传入参数1则加载第一页的内容
       if (arg === 1) {
         this.ipagination.current = 1;
       }
-      var params = this.getQueryParams(); //查询条件
+      var params = this.getQueryParams(); // 查询条件
       this.loading = true;
       getAction(this.url.list, params).then((res) => {
         if (res.code === 200) {
@@ -103,10 +103,10 @@ export const JeecgListMixin = {
       });
     },
     initDictConfig() {
-      //console.log("--这是一个假的方法!")
+      // console.log("--这是一个假的方法!")
     },
     handleSuperQuery(params, matchType) {
-      //高级查询方法
+      // 高级查询方法
       if (!params) {
         this.superQueryParams = '';
         this.superQueryFlag = false;
@@ -118,7 +118,7 @@ export const JeecgListMixin = {
       this.loadData(1);
     },
     getQueryParams() {
-      //获取查询条件
+      // 获取查询条件
       let sqp = {};
       if (this.superQueryParams) {
         sqp['superQueryParams'] = encodeURI(this.superQueryParams);
@@ -165,7 +165,6 @@ export const JeecgListMixin = {
       }
       if (this.selectedRowKeys.length <= 0) {
         this.$message.warning('请选择一条记录！');
-        return;
       } else {
         var ids = '';
         for (var a = 0; a < this.selectedRowKeys.length; a++) {
@@ -200,7 +199,6 @@ export const JeecgListMixin = {
       }
       if (this.selectedRowKeys.length <= 0) {
         this.$message.warning('请选择一条记录！');
-        return;
       } else {
         var ids = '';
         for (var a = 0; a < this.selectedRowKeys.length; a++) {
@@ -253,10 +251,10 @@ export const JeecgListMixin = {
       this.$refs.modalForm.disableSubmit = false;
     },
     handleTableChange(pagination, filters, sorter) {
-      //分页、排序、筛选变化时触发
+      // 分页、排序、筛选变化时触发
       if (Object.keys(sorter).length > 0) {
         this.isorter.column = sorter.field;
-        this.isorter.order = 'ascend' == sorter.order ? 'asc' : 'desc';
+        this.isorter.order = sorter.order == 'ascend' ? 'asc' : 'desc';
       }
       if (pagination && pagination.current) {
         this.ipagination = pagination;
@@ -285,7 +283,7 @@ export const JeecgListMixin = {
       window.location.href = url;
     },
     handleExportXls(fileName) {
-      if (!fileName || typeof fileName != 'string') {
+      if (!fileName || typeof fileName !== 'string') {
         fileName = '导出文件';
       }
       let param = { ...this.queryParam };
@@ -308,8 +306,8 @@ export const JeecgListMixin = {
           link.setAttribute('download', fileName + '_' + getNowFormatStr() + '.xls');
           document.body.appendChild(link);
           link.click();
-          document.body.removeChild(link); //下载完成移除元素
-          window.URL.revokeObjectURL(url); //释放掉blob对象
+          document.body.removeChild(link); // 下载完成移除元素
+          window.URL.revokeObjectURL(url); // 释放掉blob对象
         }
       });
     },
@@ -360,8 +358,8 @@ export const JeecgListMixin = {
     },
     /* 按钮权限 */
     initActiveBtnStr() {
-      let btnStrList = Vue.ls.get('winBtnStrList'); //按钮功能列表 JSON字符串
-      this.btnEnableList = ''; //按钮列表
+      let btnStrList = Vue.ls.get('winBtnStrList'); // 按钮功能列表 JSON字符串
+      this.btnEnableList = ''; // 按钮列表
       let pathName = location.pathname;
       if (pathName.indexOf('/plugins') > -1) {
         pathName = '/system' + pathName;
@@ -382,11 +380,11 @@ export const JeecgListMixin = {
         this.scroll.y = '';
       } else {
         let basicLength = 274;
-        let searchWrapperDomLen = 0,
-          operatorDomLen = 0;
-        //搜索区域
+        let searchWrapperDomLen = 0;
+        let operatorDomLen = 0;
+        // 搜索区域
         let searchWrapperDom = document.getElementsByClassName('table-page-search-wrapper');
-        //操作按钮区域
+        // 操作按钮区域
         let operatorDom = document.getElementsByClassName('table-operator');
         if (searchWrapperDom && searchWrapperDom[0]) {
           searchWrapperDomLen = searchWrapperDom[0].offsetHeight;
@@ -401,10 +399,10 @@ export const JeecgListMixin = {
     /** 表格增加合计行 */
     tableAddTotalRow(columns, dataSource) {
       if (dataSource.length > 0 && this.ipagination.pageSize % 10 === 1) {
-        //分页条数为11、21、31等的时候增加合计行
+        // 分页条数为11、21、31等的时候增加合计行
         let numKey = 'rowIndex';
         let totalRow = { [numKey]: '合计' };
-        //需要合计的列
+        // 需要合计的列
         let parseCols =
           'initialStock,currentStock,currentStockPrice,initialAmount,thisMonthAmount,currentAmount,inSum,inSumPrice,' +
           'inOutSumPrice,outSum,outSumPrice,outInSumPrice,operNumber,allPrice,numSum,priceSum,prevSum,thisSum,thisAllPrice,changeAmount,' +
@@ -432,7 +430,7 @@ export const JeecgListMixin = {
           }
         });
         dataSource.push(totalRow);
-        //总数要增加合计的行数，每页都有一行合计，所以总数要加上
+        // 总数要增加合计的行数，每页都有一行合计，所以总数要加上
         let size = Math.ceil(this.ipagination.total / (this.ipagination.pageSize - 1));
         this.ipagination.total = this.ipagination.total + size;
       }

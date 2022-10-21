@@ -547,7 +547,7 @@ var CryptoJS =
        */
       _append: function (data) {
         // Convert string to WordArray, else assume WordArray already
-        if (typeof data == 'string') {
+        if (typeof data === 'string') {
           data = Utf8.parse(data);
         }
 
@@ -1566,7 +1566,7 @@ var CryptoJS =
 
 (function () {
   // Check if typed arrays are supported
-  if (typeof ArrayBuffer != 'function') {
+  if (typeof ArrayBuffer !== 'function') {
     return;
   }
 
@@ -1887,7 +1887,7 @@ var CryptoJS =
       hasher = this._hasher = new hasher.init();
 
       // Convert string to WordArray, else assume WordArray already
-      if (typeof key == 'string') {
+      if (typeof key === 'string') {
         key = Utf8.parse(key);
       }
 
@@ -2587,8 +2587,8 @@ var CryptoJS =
   // Compute Constants
   (function () {
     // Compute rho offset constants
-    var x = 1,
-      y = 0;
+    var x = 1;
+    var y = 0;
     for (var t = 0; t < 24; t++) {
       RHO_OFFSETS[x + 5 * y] = (((t + 1) * (t + 2)) / 2) % 64;
 
@@ -2693,8 +2693,8 @@ var CryptoJS =
         // Theta
         for (var x = 0; x < 5; x++) {
           // Mix column lanes
-          var tMsw = 0,
-            tLsw = 0;
+          var tMsw = 0;
+          var tLsw = 0;
           for (var y = 0; y < 5; y++) {
             var lane = state[x + 5 * y];
             tMsw ^= lane.high;
@@ -3465,7 +3465,7 @@ CryptoJS.lib.Cipher ||
        */
       _createHelper: (function () {
         function selectCipherStrategy(key) {
-          if (typeof key == 'string') {
+          if (typeof key === 'string') {
             return PasswordBasedCipher;
           } else {
             return SerializableCipher;
@@ -4013,7 +4013,7 @@ CryptoJS.lib.Cipher ||
        *     var ciphertextParams = CryptoJS.lib.SerializableCipher._parse(ciphertextStringOrParams, format);
        */
       _parse: function (ciphertext, format) {
-        if (typeof ciphertext == 'string') {
+        if (typeof ciphertext === 'string') {
           return format.parse(ciphertext, this);
         } else {
           return ciphertext;
@@ -5535,7 +5535,7 @@ CryptoJS.mode.CTRGladman = (function () {
 
   function incWord(word) {
     if (((word >> 24) & 0xff) === 0xff) {
-      //overflow
+      // overflow
       var b1 = (word >> 16) & 0xff;
       var b2 = (word >> 8) & 0xff;
       var b3 = word & 0xff;

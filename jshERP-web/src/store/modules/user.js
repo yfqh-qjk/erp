@@ -81,7 +81,7 @@ const user = {
                 const result = response.data;
                 Vue.ls.set(USER_ID, result.user.id, 7 * 24 * 60 * 60 * 1000);
                 Vue.ls.set(USER_LOGIN_NAME, result.user.loginName, 7 * 24 * 60 * 60 * 1000);
-                //前端7天有效期，后端默认1天，只要用户在1天内有访问页面就可以一直续期直到7天结束
+                // 前端7天有效期，后端默认1天，只要用户在1天内有访问页面就可以一直续期直到7天结束
                 Vue.ls.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000);
                 Vue.ls.set(USER_INFO, result.user, 7 * 24 * 60 * 60 * 1000);
                 commit('SET_TOKEN', result.token);
@@ -100,7 +100,7 @@ const user = {
     // 获取用户信息
     GetPermissionList({ commit }) {
       return new Promise((resolve, reject) => {
-        //let v_token = Vue.ls.get(ACCESS_TOKEN);
+        // let v_token = Vue.ls.get(ACCESS_TOKEN);
         let params = { pNumber: 0, userId: Vue.ls.get(USER_ID) };
         queryPermissionsByUser(params)
           .then((response) => {
@@ -121,7 +121,7 @@ const user = {
     // 登出
     Logout({ commit, state }) {
       return new Promise((resolve) => {
-        //let logoutToken = state.token;
+        // let logoutToken = state.token;
         commit('SET_TOKEN', '');
         commit('SET_PERMISSIONLIST', []);
         Vue.ls.remove(USER_ID);

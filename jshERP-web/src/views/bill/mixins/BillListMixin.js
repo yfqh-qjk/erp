@@ -41,14 +41,14 @@ export const BillListMixin = {
       if (this.btnEnableList.indexOf(2) === -1) {
         this.$refs.modalForm.isCanCheck = false;
       }
-      //复制单据的时候需要移除关联单据的相关信息
+      // 复制单据的时候需要移除关联单据的相关信息
       record.linkNumber = '';
       record.billType = '';
       record.deposit = '';
       this.$refs.modalForm.edit(record);
       this.$refs.modalForm.title = '复制新增';
       this.$refs.modalForm.disableSubmit = false;
-      //开启明细的编辑模式
+      // 开启明细的编辑模式
       this.$refs.modalForm.rowCanEdit = true;
       this.$refs.modalForm.materialTable.columns[1].type = FormTypes.popupJsh;
     },

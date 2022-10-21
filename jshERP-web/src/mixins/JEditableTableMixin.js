@@ -96,8 +96,8 @@ export const JEditableTableMixin = {
     },
     /** 发起请求，自动判断是执行新增还是修改操作 */
     request(formData) {
-      let url = this.url.add,
-        method = 'post';
+      let url = this.url.add;
+      let method = 'post';
       if (this.model.id) {
         url = this.url.edit;
         method = 'put';

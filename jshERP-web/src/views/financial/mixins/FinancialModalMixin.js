@@ -30,7 +30,7 @@ export const FinancialModalMixin = {
       spans: {
         labelCol1: { span: 2 },
         wrapperCol1: { span: 22 },
-        //1_5: 分为1.5列（相当于占了2/3）
+        // 1_5: 分为1.5列（相当于占了2/3）
         labelCol1_5: { span: 3 },
         wrapperCol1_5: { span: 21 },
         labelCol2: { span: 4 },
@@ -44,7 +44,7 @@ export const FinancialModalMixin = {
   },
   created() {
     let userInfo = Vue.ls.get(USER_INFO);
-    this.isTenant = userInfo.id === userInfo.tenantId ? true : false;
+    this.isTenant = userInfo.id === userInfo.tenantId;
     let realScreenWidth = window.screen.width;
     this.width = realScreenWidth < 1500 ? '1300px' : '1550px';
   },
@@ -129,7 +129,7 @@ export const FinancialModalMixin = {
               item.options = [];
               for (let i = 0; i < res.length; i++) {
                 let inOutItemInfo = {};
-                inOutItemInfo.value = res[i].id + ''; //注意-此处value必须为字符串格式
+                inOutItemInfo.value = res[i].id + ''; // 注意-此处value必须为字符串格式
                 inOutItemInfo.text = res[i].name;
                 inOutItemInfo.title = res[i].name;
                 item.options.push(inOutItemInfo);
@@ -139,7 +139,7 @@ export const FinancialModalMixin = {
         }
       });
     },
-    //账户-用于主表
+    // 账户-用于主表
     initAccount() {
       let that = this;
       getAccount({}).then((res) => {
@@ -148,7 +148,7 @@ export const FinancialModalMixin = {
         }
       });
     },
-    //账户-用于明细
+    // 账户-用于明细
     initDetailAccount() {
       let that = this;
       getAccount({}).then((res) => {
@@ -159,7 +159,7 @@ export const FinancialModalMixin = {
               item.options = [];
               for (let i = 0; i < list.length; i++) {
                 let accountInfo = {};
-                accountInfo.value = list[i].id + ''; //注意-此处value必须为字符串格式
+                accountInfo.value = list[i].id + ''; // 注意-此处value必须为字符串格式
                 accountInfo.text = list[i].name;
                 accountInfo.title = list[i].name;
                 item.options.push(accountInfo);
@@ -202,7 +202,7 @@ export const FinancialModalMixin = {
     personModalFormOk() {
       this.initPerson();
     },
-    //单元值改变一个字符就触发一次
+    // 单元值改变一个字符就触发一次
     onValueChange(event) {
       let that = this;
       const { type, row, column, value, target } = event;
@@ -213,7 +213,7 @@ export const FinancialModalMixin = {
           break;
       }
     },
-    //改变本次欠款的值
+    // 改变本次欠款的值
     autoChangeAmount(target) {
       let allEachAmount = target.statisticsColumns.eachAmount - 0;
       let discountMoney = this.form.getFieldValue('discountMoney') - 0;
@@ -225,7 +225,7 @@ export const FinancialModalMixin = {
         this.form.setFieldsValue({ totalPrice: allEachAmount, changeAmount: changeAmount });
       });
     },
-    //改变优惠金额
+    // 改变优惠金额
     onKeyUpDiscountMoney(e) {
       const value = e.target.value - 0;
       let totalPrice = this.form.getFieldValue('totalPrice') - 0;
@@ -234,7 +234,7 @@ export const FinancialModalMixin = {
         this.form.setFieldsValue({ changeAmount: changeAmount });
       });
     },
-    //选择欠款单据
+    // 选择欠款单据
     debtBillListOk(selectBillRows) {
       if (selectBillRows && selectBillRows.length > 0) {
         this.requestSubTableDataEx(selectBillRows, this.accountTable);
@@ -266,7 +266,7 @@ export const FinancialModalMixin = {
       typeof success === 'function' ? success(res) : '';
       tab.loading = false;
     },
-    //保存并审核
+    // 保存并审核
     handleOkAndCheck() {
       this.billStatus = '1';
       this.handleOk();

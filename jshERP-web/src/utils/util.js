@@ -31,7 +31,7 @@ export function triggerWindowResizeEvent() {
  * @returns {*}
  */
 export function filterObj(obj) {
-  if (!(typeof obj == 'object')) {
+  if (!(typeof obj === 'object')) {
     return;
   }
 
@@ -52,7 +52,7 @@ export function filterObj(obj) {
 export function formatDate(value, fmt) {
   let regPos = /^\d+(\.\d+)?$/;
   if (regPos.test(value)) {
-    //如果是数字
+    // 如果是数字
     let getDate = new Date(value);
     let o = {
       'M+': getDate.getMonth() + 1,
@@ -73,7 +73,7 @@ export function formatDate(value, fmt) {
     }
     return fmt;
   } else {
-    //TODO
+    // TODO
     value = value.trim();
     return value.substr(0, fmt.length);
   }
@@ -132,7 +132,7 @@ function generateChildRouters(data) {
       },
     };
     if (item.component.indexOf('IframePageView') > -1) {
-      //给带iframe的页面进行改造
+      // 给带iframe的页面进行改造
       menu.iframeComponent = componentPath;
     } else {
       menu.component = componentPath;
@@ -140,15 +140,15 @@ function generateChildRouters(data) {
     if (item.children && item.children.length > 0) {
       menu.children = [...generateChildRouters(item.children)];
     }
-    //--update-begin----author:scott---date:20190320------for:根据后台菜单配置，判断是否路由菜单字段，动态选择是否生成路由（为了支持参数URL菜单）------
-    //判断是否生成路由
+    // --update-begin----author:scott---date:20190320------for:根据后台菜单配置，判断是否路由菜单字段，动态选择是否生成路由（为了支持参数URL菜单）------
+    // 判断是否生成路由
     if (item.route && item.route === '0') {
-      //console.log(' 不生成路由 item.route：  '+item.route);
-      //console.log(' 不生成路由 item.path：  '+item.path);
+      // console.log(' 不生成路由 item.route：  '+item.route);
+      // console.log(' 不生成路由 item.path：  '+item.path);
     } else {
       routers.push(menu);
     }
-    //--update-end----author:scott---date:20190320------for:根据后台菜单配置，判断是否路由菜单字段，动态选择是否生成路由（为了支持参数URL菜单）------
+    // --update-end----author:scott---date:20190320------for:根据后台菜单配置，判断是否路由菜单字段，动态选择是否生成路由（为了支持参数URL菜单）------
   }
   return routers;
 }
@@ -268,7 +268,7 @@ export function cssExpand(css, id) {
 export function jsExpand(options = {}) {
   // 绑定到window上的keyName
   let windowKeyName = 'J_CLICK_EVENT_OPTIONS';
-  if (typeof window[windowKeyName] != 'object') {
+  if (typeof window[windowKeyName] !== 'object') {
     window[windowKeyName] = {};
   }
 
@@ -635,8 +635,8 @@ export function sheet2blob(aoa, sheetName) {
  * @param cur_version 这个变量可以用来存取版本号， 系统更新时候改变相应值
  */
 export function handleIntroJs(module, cur_version) {
-  //每个页面设置不同的缓存变量名称，不可以重复，有新版本时，更新cur_version
-  //有新版本更新时才出现一次引导页， 第二次进入进不再出现， 这里有缓存来判断
+  // 每个页面设置不同的缓存变量名称，不可以重复，有新版本时，更新cur_version
+  // 有新版本更新时才出现一次引导页， 第二次进入进不再出现， 这里有缓存来判断
   let introJsObj = introJs();
   if (module !== 'indexChart') {
     let idElement = '#' + module;
@@ -650,14 +650,14 @@ export function handleIntroJs(module, cur_version) {
       prevLabel: '&larr; 上一步',
       nextLabel: '下一步 &rarr;',
       doneLabel: '知道了',
-      exitOnOverlayClick: false, //点击空白区域是否关闭提示组件
+      exitOnOverlayClick: false, // 点击空白区域是否关闭提示组件
     })
     .oncomplete(function () {
-      //点击跳过按钮后执行的事件(这里保存对应的版本号到缓存,并且设置有效期为100天）
+      // 点击跳过按钮后执行的事件(这里保存对应的版本号到缓存,并且设置有效期为100天）
       Vue.ls.set('intro_cache_' + module, cur_version, 100 * 24 * 60 * 60 * 1000);
     })
     .onexit(function () {
-      //点击结束按钮后， 执行的事件
+      // 点击结束按钮后， 执行的事件
       Vue.ls.set('intro_cache_' + module, cur_version, 100 * 24 * 60 * 60 * 1000);
     })
     .start();
@@ -680,7 +680,7 @@ export function autoJumpNextInput(domInfo) {
     }
   });
   for (let i = 0; i < inputs.length; i++) {
-    //这个index就是做个介质，来获取当前的i是第几个
+    // 这个index就是做个介质，来获取当前的i是第几个
     inputs[i].index = i;
     inputs[i].onclick = function () {
       domIndex = this.index;

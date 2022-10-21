@@ -244,8 +244,8 @@ export default {
   render(h) {
     const _vm = this;
 
-    let props = {},
-      localKeys = Object.keys(this.$data);
+    let props = {};
+    let localKeys = Object.keys(this.$data);
 
     Object.keys(T.props).forEach((k) => {
       let localKey = `local${k.substring(0, 1).toUpperCase()}${k.substring(1)}`;
