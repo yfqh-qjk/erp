@@ -6,7 +6,8 @@
     @cancel="handleCancel"
     cancelText="关闭"
     wrapClassName="ant-modal-cust-warp"
-    style="top:5%;height: 100%;overflow-y: hidden">
+    style="top: 5%; height: 100%; overflow-y: hidden"
+  >
     <template slot="footer">
       <a-button key="back" @click="handleCancel">取消</a-button>
     </template>
@@ -18,7 +19,7 @@
         <a-row>
           <a-col>
             <a-form-item>
-              <a-input v-decorator="['id']" hidden/>
+              <a-input v-decorator="['id']" hidden />
             </a-form-item>
           </a-col>
         </a-row>
@@ -28,45 +29,42 @@
 </template>
 
 <script>
-  import pick from 'lodash.pick'
-  export default {
-    name: 'BillPrintIframe',
-    data () {
-      return {
-        title: "三联打印预览",
-        width: '1000px',
-        visible: false,
-        billPrintUrl: '',
-        height: "",
-        model: {},
-        form: this.$form.createForm(this),
-        loading: false
-      }
+import pick from 'lodash.pick';
+export default {
+  name: 'BillPrintIframe',
+  data() {
+    return {
+      title: '三联打印预览',
+      width: '1000px',
+      visible: false,
+      billPrintUrl: '',
+      height: '',
+      model: {},
+      form: this.$form.createForm(this),
+      loading: false,
+    };
+  },
+  created() {},
+  methods: {
+    show(record, billPrintUrl, billPrintHeight) {
+      this.height = billPrintHeight;
+      this.billPrintUrl = billPrintUrl;
+      this.visible = true;
+      this.model = Object.assign({}, record);
+      this.$nextTick(() => {
+        this.form.setFieldsValue(pick(this.model, 'id'));
+      });
     },
-    created () {
+    handleCancel() {
+      this.close();
     },
-    methods: {
-      show(record, billPrintUrl, billPrintHeight) {
-        this.height = billPrintHeight
-        this.billPrintUrl = billPrintUrl
-        this.visible = true;
-        this.model = Object.assign({}, record);
-        this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model,'id'))
-        });
-      },
-      handleCancel() {
-        this.close()
-      },
-      close() {
-        this.billPrintUrl = ''
-        this.$emit('close');
-        this.visible = false;
-      }
-    }
-  }
+    close() {
+      this.billPrintUrl = '';
+      this.$emit('close');
+      this.visible = false;
+    },
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -6,19 +6,19 @@
  *
  * */
 
-import { getRefPromise } from '@/utils/JEditableTableUtil'
+import { getRefPromise } from '@/utils/JEditableTableUtil';
 
 /* 日历的视图类型 */
 const calendarViewType = {
   month: 'month', // 月视图
-  basicWeek: 'basicWeek',  // 基础周视图
-  basicDay: 'basicDay',//  基础天视图
+  basicWeek: 'basicWeek', // 基础周视图
+  basicDay: 'basicDay', //  基础天视图
   agendaWeek: 'agendaWeek', // 议程周视图
   agendaDay: 'agendaDay', // 议程天视图
-}
+};
 
 /* 定义默认视图 */
-const defaultView = calendarViewType.month
+const defaultView = calendarViewType.month;
 
 /* 定义日历默认配置 */
 const defaultSettings = {
@@ -28,13 +28,13 @@ const defaultSettings = {
     today: '今天',
     month: '月',
     week: '周',
-    day: '日'
+    day: '日',
   },
   // 头部排列方式
   header: {
     left: 'prev,next, today',
     center: 'title',
-    right: 'hide, custom, month,agendaWeek,agendaDay'
+    right: 'hide, custom, month,agendaWeek,agendaDay',
   },
   //点击今天日列表图
   eventLimitClick: 'day',
@@ -56,52 +56,50 @@ const defaultSettings = {
   slotLabelFormat: 'HH:mm',
   // 设置第二天阈值
   nextDayThreshold: '00:00:00',
-}
+};
 
 /** 提供了一些增强方法 */
 const CalendarMixins = {
   data() {
     return {
-      calenderCurrentViewType: defaultView
-    }
+      calenderCurrentViewType: defaultView,
+    };
   },
   methods: {
-
     getCalendarConfigEventHandler() {
       return {
         // 处理 view changed 事件
         viewRender: (view, element) => {
-          let { type } = view
+          let { type } = view;
 
-          let lastViewType = this.calenderCurrentViewType
-          this.calenderCurrentViewType = type
+          let lastViewType = this.calenderCurrentViewType;
+          this.calenderCurrentViewType = type;
 
           if (typeof this.handleViewRender === 'function') {
-            this.handleViewRender(type, view, element)
+            this.handleViewRender(type, view, element);
           }
 
           if (lastViewType !== this.calenderCurrentViewType && typeof this.handleViewChanged === 'function') {
-            this.handleViewChanged(type, view, element)
+            this.handleViewChanged(type, view, element);
           }
-
         },
-      }
+      };
     },
 
     /** 获取 LunarFullCalendar 实例，ref = baseCalendar */
     getCalendar(fn) {
-      return getRefPromise(this, 'baseCalendar').then(fn)
+      return getRefPromise(this, 'baseCalendar').then(fn);
     },
 
     calendarEmit(name, data) {
-      this.getCalendar(ref => ref.$emit(name, data))
+      this.getCalendar((ref) => ref.$emit(name, data));
     },
 
     /** 强制重新加载所有的事件（日程）*/
     calendarReloadEvents() {
-      this.calendarEmit('reload-events')
-    }
-  }
-}
+      this.calendarEmit('reload-events');
+    },
+  },
+};
 
-export { defaultSettings, calendarViewType, CalendarMixins }
+export { defaultSettings, calendarViewType, CalendarMixins };

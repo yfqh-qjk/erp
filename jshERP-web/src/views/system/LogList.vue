@@ -28,13 +28,13 @@
                   />
                 </a-form-item>
               </a-col>
-              <a-col :md="6" :sm="24" >
-                <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+              <a-col :md="6" :sm="24">
+                <span style="float: left; overflow: hidden" class="table-page-search-submitButtons">
                   <a-button type="primary" @click="searchQuery">查询</a-button>
                   <a-button style="margin-left: 8px" @click="searchReset">重置</a-button>
                   <a @click="handleToggleSearch" style="margin-left: 8px">
                     {{ toggleSearchStatus ? '收起' : '展开' }}
-                    <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
+                    <a-icon :type="toggleSearchStatus ? 'up' : 'down'" />
                   </a>
                 </span>
               </a-col>
@@ -73,11 +73,12 @@
           :pagination="ipagination"
           :scroll="scroll"
           :loading="loading"
-          @change="handleTableChange">
+          @change="handleTableChange"
+        >
           <!-- 字符串超长截取省略号显示-->
           <span slot="content" slot-scope="text, record">
-              <j-ellipsis :value="text" :length="40"/>
-            </span>
+            <j-ellipsis :value="text" :length="40" />
+          </span>
         </a-table>
         <!-- table区域-end -->
       </a-card>
@@ -86,102 +87,109 @@
 </template>
 <!-- f r o m 7 5  2 7 1  8 9 2 0 -->
 <script>
-  import { JeecgListMixin } from '@/mixins/JeecgListMixin'
-  import JEllipsis from '@/components/jeecg/JEllipsis'
+import { JeecgListMixin } from '@/mixins/JeecgListMixin';
+import JEllipsis from '@/components/jeecg/JEllipsis';
 
-  export default {
-    name: "LogList",
-    mixins:[JeecgListMixin],
-    components: {
-      JEllipsis
-    },
-    data () {
-      return {
-        // 查询条件
-        queryParam: {
-          operation:'',
-          content:'',
-          createTimeRange:[],
-          userInfo: '',
-          clientIp:'',
-          status:''
-        },
-        tabKey: "1",
-        // 表头
-        columns: [
-          {
-            title: '#',
-            dataIndex: '',
-            key:'rowIndex',
-            width:40,
-            align:"center",
-            customRender:function (t,r,index) {
-              return parseInt(index)+1;
-            }
-          },
-          {title: '操作模块', dataIndex: 'operation', width: 120, align: "left"},
-          {title: '操作详情', dataIndex: 'content', scopedSlots: { customRender: 'content' }, width: 350, align:"left" },
-          {title: '操作员账号', dataIndex: 'loginName', width: 80, align: "left"},
-          {title: '操作员姓名', dataIndex: 'userName', width: 80, align: "left"},
-          {
-            title: '操作状态', dataIndex: 'status',width:80, align:"left",
-            customRender:function (text) {
-              if(text){
-                return "失败";
-              }else {
-                return "成功";
-              }
-            }
-          },
-          {title: '操作IP', dataIndex: 'clientIp', width: 110, align: "left"},
-          {title: '操作时间', dataIndex: 'createTimeStr', width: 120, align: "left"}
-        ],
-        operateColumn:
+export default {
+  name: 'LogList',
+  mixins: [JeecgListMixin],
+  components: {
+    JEllipsis,
+  },
+  data() {
+    return {
+      // 查询条件
+      queryParam: {
+        operation: '',
+        content: '',
+        createTimeRange: [],
+        userInfo: '',
+        clientIp: '',
+        status: '',
+      },
+      tabKey: '1',
+      // 表头
+      columns: [
         {
-          title: '操作类型',
-          dataIndex: 'operateType_dictText',
-          align:"center",
+          title: '#',
+          dataIndex: '',
+          key: 'rowIndex',
+          width: 40,
+          align: 'center',
+          customRender: function (t, r, index) {
+            return parseInt(index) + 1;
+          },
         },
-        labelCol: {
-          span: 5
+        { title: '操作模块', dataIndex: 'operation', width: 120, align: 'left' },
+        {
+          title: '操作详情',
+          dataIndex: 'content',
+          scopedSlots: { customRender: 'content' },
+          width: 350,
+          align: 'left',
         },
-        wrapperCol: {
-          span: 18,
-          offset: 1
+        { title: '操作员账号', dataIndex: 'loginName', width: 80, align: 'left' },
+        { title: '操作员姓名', dataIndex: 'userName', width: 80, align: 'left' },
+        {
+          title: '操作状态',
+          dataIndex: 'status',
+          width: 80,
+          align: 'left',
+          customRender: function (text) {
+            if (text) {
+              return '失败';
+            } else {
+              return '成功';
+            }
+          },
         },
-        url: {
-          list: "/log/list",
-        }
+        { title: '操作IP', dataIndex: 'clientIp', width: 110, align: 'left' },
+        { title: '操作时间', dataIndex: 'createTimeStr', width: 120, align: 'left' },
+      ],
+      operateColumn: {
+        title: '操作类型',
+        dataIndex: 'operateType_dictText',
+        align: 'center',
+      },
+      labelCol: {
+        span: 5,
+      },
+      wrapperCol: {
+        span: 18,
+        offset: 1,
+      },
+      url: {
+        list: '/log/list',
+      },
+    };
+  },
+  methods: {
+    // 日志类型
+    callback(key) {
+      // 动态添加操作类型列
+      if (key == 2) {
+        this.tabKey = '2';
+        this.columns.splice(7, 0, this.operateColumn);
+      } else if (this.columns.length == 9) {
+        this.tabKey = '1';
+        this.columns.splice(7, 1);
       }
-    },
-    methods: {
-      // 日志类型
-      callback(key){
-        // 动态添加操作类型列
-        if (key == 2) {
-          this.tabKey = '2';
-          this.columns.splice(7, 0, this.operateColumn);
-        }else if(this.columns.length == 9)
-        {
-          this.tabKey = '1';
-          this.columns.splice(7,1);
-        }
 
-        let that=this;
-        that.queryParam.logType=key;
-        that.loadData();
-      },
-      onDateChange: function (value, dateString) {
-        console.log(dateString[0],dateString[1]);
-        this.queryParam.beginTime=dateString[0];
-        this.queryParam.endTime=dateString[1];
-      },
-      onDateOk(value) {
-        console.log(value);
-      },
-    }
-  }
+      let that = this;
+      that.queryParam.logType = key;
+      that.loadData();
+    },
+    onDateChange: function (value, dateString) {
+      console.log(dateString[0], dateString[1]);
+      this.queryParam.beginTime = dateString[0];
+      this.queryParam.endTime = dateString[1];
+    },
+    onDateOk(value) {
+      console.log(value);
+    },
+  },
+};
 </script>
 <style scoped>
-  @import '~@assets/less/common.less'
+@import '~@assets/less/common.less';
 </style>

@@ -3,8 +3,18 @@
   "version": "2.2.0",
   "private": true,
   "scripts": {
+    "format": "prettier -w ./",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "useTabs": false,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "all",
+    "endOfLine": "lf",
+    "semi": true
   },
   "dependencies": {
     "@antv/data-set": "^0.11.2",
@@ -16,14 +26,13 @@
     "codemirror": "^5.46.0",
     "dayjs": "^1.8.0",
     "enquire.js": "^2.1.6",
+    "intro.js": "^4.2.2",
+    "jquery": "^1.12.4",
     "js-cookie": "^2.2.0",
     "lodash.get": "^4.4.2",
     "lodash.pick": "^4.4.0",
     "md5": "^2.2.1",
     "nprogress": "^0.2.0",
-    "xlsx": "^0.14.3",
-    "intro.js": "^4.2.2",
-    "jquery": "^1.12.4",
     "viser-vue": "^2.4.4",
     "vue": "^2.6.10",
     "vue-area-linkage": "^5.1.0",
@@ -36,7 +45,8 @@
     "vue-router": "^3.0.1",
     "vue-splitpane": "^1.0.4",
     "vuedraggable": "^2.20.0",
-    "vuex": "^3.1.0"
+    "vuex": "^3.1.0",
+    "xlsx": "^0.14.3"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.2.5",
@@ -51,6 +61,7 @@
     "html-webpack-plugin": "^4.2.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
+    "prettier": "^2.7.1",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
@@ -88,9 +99,12 @@
       "vue/no-use-v-if-with-v-for": 0,
       "vue/html-closing-bracket-newline": 0,
       "vue/no-parsing-error": 0,
-	  "no-console": 0,
+      "no-console": 0,
       "no-tabs": 0,
-      "indent": [1, 4]
+      "indent": [
+        1,
+        4
+      ]
     }
   },
   "postcss": {
