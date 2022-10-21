@@ -106,21 +106,11 @@
     "skipLibCheck": false,
 
     "paths": {
-      "@$/*": [
-        "src/*"
-      ],
-      "@api/*": [
-        "src/api/*"
-      ],
-      "@assets/*": [
-        "src/assets/*"
-      ],
-      "@comp/*": [
-        "src/components/*"
-      ],
-      "@views/*": [
-        "src/views/*"
-      ]
+      "@$/*": ["src/*"],
+      "@api/*": ["src/api/*"],
+      "@assets/*": ["src/assets/*"],
+      "@comp/*": ["src/components/*"],
+      "@views/*": ["src/views/*"]
     }
     /* Skip type checking all .d.ts files. */
   }
